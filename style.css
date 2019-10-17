@@ -6,9 +6,24 @@
 .card-header {
     font-size: 24px;
     line-height: 28px;
+    font-weight: bold;
+    background-color: teal;
+    color: white;
 }
 
 .panel-body {
     padding: 15px;
 }
+
+.jumbotron {
+    background-color: teal;
+    color: white;
+    font-weight: bold;
+}
+
+body {
+    background-color: peachpuff;
+}
+
+
 

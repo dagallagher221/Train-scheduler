@@ -31,28 +31,29 @@ var firebaseConfig = {
           frequency: frequency
       });
   });
-
+  //Reference the firebase database to pull back information
   database.ref().on("child_added", function (childSnapshot) {
     var newTrain = childSnapshot.val().trainName;
     var newLocation = childSnapshot.val().destination;
     var newFirstTrain = childSnapshot.val().firstTrain;
     var newFrequency = childSnapshot.val().frequency;
 
+    //Convert inputed moment and subtract a year to ensure input will be first train
     var startTimeConverted = moment(newFirstTrain, "hh:mm").subtract(1, "years");
-
+    //Create moment for current time
     var currentTime = moment();
-
+    //Calculate difference between current time and start time
     var diffTime = moment().diff(moment(startTimeConverted), "minutes");
-
+    //Calculate time difference til next train
     var tRemainder = diffTime % newFrequency;
-
+    //Calculate minutes until next train
     var tMinutesTillTrain = newFrequency - tRemainder;
-
+    //Next train data
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     var catchTrain = moment(nextTrain).format("HH:mm");
-
+    //Display the data in the table
     $("#all-display").append('<tr><td>' + newTrain + '</td><td>' + newLocation + '</td><td>' + newFrequency + '</td><td>' + catchTrain + '</td><td>' + tMinutesTillTrain + '</td></tr>');
-    
+    //Clear input fields
     $("#trainName, #destination, #firstTrain, #interval").val("");
     return false;
 
